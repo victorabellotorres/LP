@@ -1,24 +1,31 @@
 absValue :: Int -> Int
 absValue n
     | n >= 0    = n
-    | otherwise = -n
+    | otherwise = (-n)
 
 power :: Int -> Int -> Int
 power x 0 = 1
 power x n = x * power x (n-1)
 
-havedivisor ::Int -> Int -> Bool
-havedivisor n divisor
-    | divisor <= 1 = False
-    | mod n divisor == 0 = True
-    | otherwise = havedivisor n (divisor-1)
-
 
 isPrime :: Int -> Bool
 isPrime n
-    | n == 0    = False
-    | n == 1    = False
-    | otherwise = not (havedivisor n (div n 2))
+    | n <= 1    = False
     | otherwise = not (divisors 2)
-    where divisors i
-    |
+    where 
+        divisors i
+            | i*i > n = False
+            | mod n i == 0 = True
+            | otherwise = divisors (i+1)
+
+slowFib :: Int -> Int
+slowFib 0 = 0
+slowFib 1 = 1
+slowFib n  = slowFib (n-1) + slowFib (n-2)
+
+quickFib :: Int -> Int
+quickFib n = fib n 0 1
+    where  
+        fib 0 a b = a
+        fib n a b = fib (n-1) b (b+a)
+    
